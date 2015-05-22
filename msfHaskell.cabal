@@ -1,0 +1,125 @@
+Name:                msf-haskell
+Version:             0.1
+Synopsis:            Haskell implementation of Metasploit remote API.
+License:             BSD3
+License-file:        LICENSE
+Author:              Galois, Inc.
+Maintainer:          ijones@galois.com
+Build-Type:          Simple
+Cabal-version:       >= 1.16
+Category:            Network
+Description:
+  This is a prototype tool for improving the safety of automated penetration
+  testing through the use of a programming language type system. We have
+  successfully implemented a prototype domain-specific library for penetration
+  tests that includes strong type checking that can help developers avoid a wide
+  range of programming errors. The Metasploit Framework (MSF) is a penetration
+  testing toolkit with capabilities like scanning a network to detect hosts
+  (using the network mapping tool nmap), launching attacks against vulnerable
+  hosts, encoding payloads to avoid detection, and deploying payloads with a
+  wide variety of features for controlling an exploited host.
+    .  The "MSF" functionality is higher-level than the "RPC" functionality.
+    .  Read the Metasploit Remote API documentation for more info: <https://community.rapid7.com/docs/DOC-1516>
+
+
+Library
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+  Build-depends:       base         >= 4.5,
+                       async        >= 2.0.1.4,
+                       bytestring   >= 0.9,
+                       cereal       >= 0.3.5.2,
+                       monadLib     >= 3.7.1,
+                       HTTP         >= 4000.2,
+                       containers   >= 0.4,
+                       vector       >= 0.9,
+                       pretty-show  >= 1.5,
+                       stm          >= 2.4.2,
+                       http-server  >= 1.0.2,
+                       network-uri  >= 2.6
+  Exposed-modules:     MSF,
+                       MSF.Auth,
+                       MSF.Commands,
+                       MSF.Concurrent,
+                       MSF.Console,
+                       MSF.Core,
+                       MSF.DB,
+                       MSF.Event,
+                       MSF.Event.Handler,
+                       MSF.Event.Prim,
+                       MSF.Host,
+                       MSF.Job,
+                       MSF.Module,
+                       MSF.Monad,
+                       MSF.Plugin,
+                       MSF.Scan,
+                       MSF.Session,
+                       MsgPack,
+                       MsgPack.RPC.Client,
+                       MsgPack.RPC.Server,
+                       MsgPack.RPC.Types,
+                       RPC.Auth,
+                       RPC.DB,
+                       RPC.Console,
+                       RPC.Core,
+                       RPC.Job,
+                       RPC.Module,
+                       RPC.Plugin,
+                       RPC.Session,
+                       RPC.Util,
+                       RPC.SimpleRPC,
+                       Types.Auth,
+                       Types.Console,
+                       Types.Core,
+                       Types.DB,
+                       Types.Job,
+                       Types.Module,
+                       Types.Plugin,
+                       Types.Session
+  hs-source-dirs:      src
+
+Flag cross-compile
+  default:             False
+  description:         Statically link the exploit, for portability
+
+Flag example
+  default:             False
+  description:         Build the example
+
+Executable exploit
+  Main-is:             ExampleExploit.hs
+  ghc-options:         -Wall  -threaded
+  if flag(cross-compile)
+     ld-options:       -static -pthread
+  default-language:    Haskell2010
+  hs-source-dirs:      examples
+  if flag(example)
+          Build-depends:       base         >= 4.5,
+                               async        >= 2.0.1.4,
+                               bytestring   >= 0.9,
+                               cereal       >= 0.3.5.2,
+                               network-uri  >= 2.6,
+                               HTTP         >= 4000,
+                               containers   >= 0.4,
+                               vector       >= 0.9,
+                               unix         >= 2.6,
+                               process      >= 1.1,
+                               directory    >= 1.2,
+                               monadLib     >= 3.7.1,
+                               MSFHaskell
+  else
+          Buildable:           False
+
+test-suite tests
+  type:                exitcode-stdio-1.0
+  ghc-options:         -Wall -threaded
+  default-language:    Haskell2010
+  hs-source-dirs:      tests
+  main-is:             Tests.hs
+  build-depends:       base                       >= 4.5,
+                       bytestring                 >= 0.9,
+                       test-framework             >= 0.8,
+                       test-framework-quickcheck2 >= 0.3,
+                       QuickCheck                 >= 2.5.1,
+                       MSFHaskell
+  other-modules:       Tests.MsgPack
