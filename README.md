@@ -1,14 +1,14 @@
-msf-haskell README File
+# MSF-Haskell
 
-= Introduction =
+## Introduction
 This directory contains the Haskell Metasploit binding and library as
 well as a whitepaper describing the purpose and use of the library.
 
-In brief, the Metasploit Framework (MSF) [1] is a widely deployed open
+In brief, the [Metasploit Framework (MSF)](http://www.metasploit.com)
+is a widely deployed open
 source penetration testing platform. Much of the functionality of the
 framework is provided by a remote procedure call (RPC) interface via
-the standard HTTP protocol. This is known as the Metasploit Remote API
-[2].
+the standard HTTP protocol. This is known as the [Metasploit Remote API](https://community.rapid7.com/docs/DOC-1516).
 
 Open source bindings to this API already exist in other programming
 languages. This package is a Haskell implementation of this API so
@@ -28,59 +28,52 @@ With permission, we plan to release this package to the open source
 community, on the open Internet, and to present the included
 whitepaper (or work derived from the whitepaper) in public forums.
 
-= Contact =
+# Contact
 Isaac Potoczny-Jones <ijones@galois.com>
 
-= Directory Contents =
+# Directory Contents
 
 In this section, we describe the most important files and directories
 contained in this package:
 
-== Documentation ==
+## Documentation
 
-whitepaper - This directory contains a PDF and the latex source files
-for the high-level whitepaper describing the system. This whitepaper
-outlines the purpose of the library and explains the types of
-programming errors that can be avoided when using the library. To read
-the whitepaper, view whitepaper/main.pdf in Adobe Acrobat or another
-PDF viewer.
+- **whitepaper** - This directory contains a PDF and the latex source files
+  for the high-level whitepaper describing the system. This whitepaper
+  outlines the purpose of the library and explains the types of
+  programming errors that can be avoided when using the library. To read
+  the whitepaper, view whitepaper/main.pdf in Adobe Acrobat or another
+  PDF viewer.
 
-api-html-docs - This directory contains HTML documentation of the
-Haskell API. This documentation is automatically generated from the
-source code, and can be viewed by opening the following file in a web
-browser: api-html-docs/msf-haskell/index.html
+## Code
 
-LICENSE - This license file will be updated with an open source
-license before release.
+- **msfHaskell.cabal** - The Haskell Cabal is the standard build system for
+  Haskell, similar to tools like Ant for Java. This file is the set of
+  build instructions for this package.
 
-== Code ==
+- **src** - This directory contains the library source files.
 
-msfHaskell.cabal - The Haskell Cabal is the standard build system for
-Haskell, similar to tools like Ant for Java. This file is the set of
-build instructions for this package.
+- **src/RPC** - The RPC directory is a low-level implementation of the
+  Metasploit Remote API.
 
-src - This directory contains the library source files.
+- **src/MSF** - The MSF directory is a higher-level implementation of the
+  Metasploit Remote API. This builds upon the code in the RPC
+  directory. It includes more advanced features like event handling,
+  port scanning, and improved type safety.
 
-src/RPC - The RPC directory is a low-level implementation of the
-Metasploit Remote API.
+- **examples** - a directory containing a single example program, which we
+  may extend in the future with more examples.
 
-src/MSF - The MSF directory is a higher-level implementation of the
-Metasploit Remote API. This builds upon the code in the RPC
-directory. It includes more advanced features like event handling,
-port scanning, and improved type safety.
+- **examples/ExampleExploit.hs** - This program demonstrates many of the
+  features of the API, and uses both the MSF and RPC code. In
+  particular, the example instructs Metasploit to perform an nmap
+  operation, launch an exploit, and download assets like the /etc/passwd
+  files from the target. The exploit in this
+  [example](http://www.metasploit.com/modules/exploit/multi/samba/usermap_script) uses an old,
+  patched, and publicly known vulnerability ([CVE-2007-2447](http://cvedetails.com/cve/2007-2447/)) that
+  is included in the standard open source Metasploit framework.
 
-examples - a directory containing a single example program, which we
-may extend in the future with more examples.
-
-examples/ExampleExploit.hs - This program demonstrates many of the
-features of the API, and uses both the MSF and RPC code. In
-particular, the example instructs Metasploit to perform an nmap
-operation, launch an exploit, and download assets like the /etc/passwd
-files from the target. The exploit in this example [3] uses an old,
-patched, and publicly known vulnerability (CVE-2007-2447) [4] that
-is included in the standard open source Metasploit framework.
-
-= Building =
+# Building
 
 The library and examples build using the standard Haskell compilation
 system called Cabal. The system requires GHC, Cabal, and some
@@ -89,10 +82,3 @@ system's package manager (e.g. RPM). The package dependencies will be
 automatically downloaded and installed by the Cabal build system. To
 build, run "cabal update" and "cabal install" from the top level
 directory.
-
-= References =
-
-[1] http://www.metasploit.com
-[2] https://community.rapid7.com/docs/DOC-1516
-[3] http://www.metasploit.com/modules/exploit/multi/samba/usermap_script
-[4] CVE-2007-2447: http://cvedetails.com/cve/2007-2447/
