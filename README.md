@@ -2,7 +2,7 @@
 
 ## Introduction
 This directory contains the Haskell Metasploit binding and library as
-well as a whitepaper describing the purpose and use of the library.
+well as [a whitepaper](whitepaper/main.pdf) describing the purpose and use of the library.
 
 In brief, the [Metasploit Framework (MSF)](http://www.metasploit.com)
 is a widely deployed open
@@ -21,15 +21,15 @@ clients. These abstractions help penetration testers writing Haskell
 code to avoid certain errors. For instance, there is compile-time
 support to detect if the developer attempted to launch an exploit
 against a host that they meant to only port scan. The included
-whitepaper covers the capabilities of these safety features in more
+[whitepaper](whitepaper/main.pdf) covers the capabilities of these safety features in more
 detail.
 
-With permission, we plan to release this package to the open source
-community, on the open Internet, and to present the included
-whitepaper (or work derived from the whitepaper) in public forums.
+This binding was compatible with the MSF API as of early 2013, but has
+not been tested on more recent releases.
 
 # Contact
-Isaac Potoczny-Jones <ijones@galois.com>
+* Isaac Potoczny-Jones <ijones@galois.com> [@SyntaxPolice](https://twitter.com/syntaxpolice)
+* Trevor Elliott <trevor@galois.com>
 
 # Directory Contents
 
@@ -38,7 +38,7 @@ contained in this package:
 
 ## Documentation
 
-- **whitepaper** - This directory contains a PDF and the latex source files
+- **whitepaper** - This directory contains [a PDF](whitepaper/main.pdf) and the latex source files
   for the high-level whitepaper describing the system. This whitepaper
   outlines the purpose of the library and explains the types of
   programming errors that can be avoided when using the library. To read
